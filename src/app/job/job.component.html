@@ -1,0 +1,310 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+ </head>
+<body>
+
+<div class="container" >
+  <h2>Candidate form</h2>
+  <form [formGroup]="reactiveForm">
+    <div class="form-group">
+      <label for="firstName" >FirstName</label>
+      <input type="text"  class="form-control" id="firstName" placeholder="Enter FirstName" name="firstName"
+      formControlName="firstName">
+      <div *ngIf="reactiveForm.controls.firstName.errors && (reactiveForm.controls.firstName.touched ||
+      reactiveForm.controls.firstName.dirty) " style="color:red">
+      <div *ngIf="reactiveForm.hasError('required','firstName')">
+        FirstName is required
+      </div>
+      <div *ngIf="reactiveForm.hasError('pattern','firstName')">
+        FirstName is in invalid
+      </div>
+      <div *ngIf="reactiveForm.hasError('minlength','firstName')">
+        FirstName must be min of 3 charachters
+      </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastName">LastName</label>
+      <input type="text" class="form-control" id="lastName" placeholder="Enter lastName" name="lastName" 
+      formControlName="lastName">
+      <div *ngIf="reactiveForm.controls.lastName.errors && (reactiveForm.controls.lastName.touched ||
+      reactiveForm.controls.lastName.dirty)"   style="color:red">
+      <div *ngIf="reactiveForm.hasError('required','lastName')">
+        LastName is required
+      </div>
+      <div *ngIf="reactiveForm.hasError('pattern','lastName')">
+        LastName is in invalid
+      </div>
+      <div *ngIf="reactiveForm.hasError('minlength','lastName')">
+        LastName must be min of 3 charachters
+      </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="username">Email</label>
+      <input type="email" class="form-control" id="username" placeholder="Enter email" name="username"
+      formControlName="username">
+      <div *ngIf="reactiveForm.controls.username.errors && (reactiveForm.controls.username.touched ||
+      reactiveForm.controls.username.dirty)"  style="color:red">
+      <div *ngIf="reactiveForm.hasError('required','username')" >
+        Email is required
+      </div>
+      <div *ngIf="reactiveForm.hasError('pattern','username')">
+        Email is in invalid
+      </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password"
+      formControlName="password">
+      <div *ngIf="reactiveForm.controls.password.errors && (reactiveForm.controls.password.touched ||
+      reactiveForm.controls.password.dirty)" style="color:red">
+      <div *ngIf="reactiveForm.hasError('required','password')">
+        Password is required
+      </div>
+      <div *ngIf="reactiveForm.hasError('minlength','password')">
+        Password must be min of 8 digits
+      </div>
+      <div *ngIf="reactiveForm.hasError('maxlength','password')">
+        Password cannot exceed more than 15 digits
+      </div>
+      </div>
+    </div>
+<!-----
+    <div class="form-group">
+      <label for="gender">Male</label>
+      <input type="radio" value="Male"formControlName="gender"> 
+      <label for="gender">Female</label>
+      <input type="radio" value="Female" formControlName="gender">
+      <label for="gender">Others</label>
+      <input type="radio" value="Others"formControlName="gender">
+      <div *ngIf="reactiveForm.controls.gender.errors &&(reactiveForm.controls.touched || 
+      reactiveForm.controls.gender.dirty)">
+      <div *ngIf="reactiveForm.hasError('required','gender')">
+        Gender is required
+      </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phoneNumber">PhoneNumber</label>
+      <input type="phoneNumber" class="form-control" id="phoneNumber" placeholder="Enter phoneNumber" name="phoneNumber"
+      formControlName="phoneNumber">
+      <div *ngIf="reactiveForm.controls.phoneNumber.errors && (reactiveForm.controls.phoneNumber.touched ||
+      reactiveForm.controls.phoneNumber.dirty)" style="color:red">
+      <div *ngIf="reactiveForm.hasError('required','phoneNumber')">
+        PhoneNumber is required
+      </div>
+      <div *ngIf="reactiveForm.hasError('pattern','phoneNumber')">
+        PhoneNumber is in invalid
+      </div>
+      <div *ngIf="reactiveForm.hasError('minlength','phoneNumber')">
+        PhoneNumber must be min of 10 digits
+      </div>
+      <div *ngIf="reactiveForm.hasError('maxlength','phoneNumber')">
+        PhoneNumber cannot exceed more than 14 digits
+      </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address"
+      formControlName="address">
+      <div *ngIf="reactiveForm.controls.address.errors && (reactiveForm.controls.address.touched ||
+      reactiveForm.controls.address.dirty) " style="color:red">
+      <div *ngIf="reactiveForm.hasError('required','address')">
+        Address is required
+      </div>
+      </div>
+    </div>
+ 
+ <div class="form-group">
+      <label for ="file">Upload Resume</label>
+    <input type="file" class="form-control" (change)="onSelectFile($event)" style="height:100%">
+    </div>
+    <h4><b>SSC Detail</b></h4>
+
+    <div class="form-group">
+      <label for="board">Board</label>
+      <select class="form-control"id="board" formControlName="board">
+        <option *ngFor="let board of boards" [value]="board.id">{{board.name}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="ssc_percentage">SSC Percentage</label>
+      <input type="text" class="form-control" id="ssc_percentage" placeholder="Enter Percentage" name="ssc_percentage"
+      formControlName="ssc_percentage">
+      <div *ngIf="reactiveForm.controls.ssc_percentage.errors && (reactiveForm.controls.ssc_percentage.touched ||
+      reactiveForm.controls.ssc_percentage.dirty) " style="color:red">
+      <div *ngIf="reactiveForm.hasError('required','ssc_percentage')">
+        SSC Percentage is required
+      </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="ssc_school">SSC School</label>
+      <input type="text" class="form-control" id="ssc_school" placeholder="Enter School Name" name="ssc_school"
+      formControlName="ssc_school">
+      <div *ngIf="reactiveForm.controls.ssc_school.errors && (reactiveForm.controls.ssc_school.touched ||
+      reactiveForm.controls.ssc_school.dirty) " style="color:red">
+      <div *ngIf="reactiveForm.hasError('required','ssc_school')">
+        SSC School is required
+      </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="ssc_school_location">Place</label>
+      <input type="text" class="form-control" id="ssc_school_location" placeholder="Enter school location" name="ssc_school_location"
+      formControlName="ssc_school_location">
+      <div *ngIf="reactiveForm.controls.ssc_school_location.errors && (reactiveForm.controls.ssc_school_location.touched ||
+      reactiveForm.controls.ssc_school_location.dirty) " style="color:red">
+      <div *ngIf="reactiveForm.hasError('required','ssc_school_location')">
+        Location is required
+      </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for ="file">Upload SSC Marksheet</label>
+    <input type="file" class="form-control" (change)="onSelectSsc($event)" style="height:100%">
+    </div>
+    <h4><b>Inter Or Diploma</b></h4>
+
+    <div class="form-group">
+      <label for="inter_percentage">Percentage</label>
+      <input type="text" class="form-control" id="inter_percentage" placeholder="Enter Percentage" name="inter_percentage"
+      formControlName="inter_percentage">
+      <div *ngIf="reactiveForm.controls.inter_percentage.errors && (reactiveForm.controls.inter_percentage.touched ||
+      reactiveForm.controls.inter_percentage.dirty) " style="color:red">
+      <div *ngIf="reactiveForm.hasError('required','inter_percentage')">
+       Percentage is required
+      </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inter_school">Institution</label>
+      <input type="text" class="form-control" id="inter_school" placeholder="Enter Institution Name" name="inter_school"
+      formControlName="inter_school">
+      <div *ngIf="reactiveForm.controls.inter_school.errors && (reactiveForm.controls.inter_school.touched ||
+      reactiveForm.controls.inter_school.dirty) " style="color:red">
+      <div *ngIf="reactiveForm.hasError('required','inter_school')">
+        Institution Name is required
+      </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inter_school_location">Place</label>
+      <input type="text" class="form-control" id="inter_school_location" placeholder="Enter Institution location" name="inter_school_location"
+      formControlName="inter_school_location">
+      <div *ngIf="reactiveForm.controls.inter_school_location.errors && (reactiveForm.controls.inter_school_location.touched ||
+      reactiveForm.controls.inter_school_location.dirty) " style="color:red">
+      <div *ngIf="reactiveForm.hasError('required','inter_school_location')">
+        Location is required
+      </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for ="file">Upload Resume</label>
+    <input type="file" class="form-control" (change)="onSelectFile($event)" style="height:100%">
+    </div>------------>
+   
+  <!---  <h4 >Company details</h4>
+    <div class="form-group">
+      
+<button type="button" class="btn btn-primary"
+(click)="addCompanyButtonClick()"
+>Add Company
+
+</button>
+</div>-->
+<!---
+    <div formArrayName="companies" *ngFor="let company of reactiveForm.get('companies').controls;
+    let i=index">
+    <hr *ngIf="i>0">
+      <div [formGroupName]="i">
+        <div class="form-group">
+            <label class="col-sm-2 control-label"
+            [attr.for]="companyName">Company name:</label>
+            <div class="col-sm-4">
+            <input type="text" class="form-control" [id]="'companyName'+i" placeholder="Enter Company Name" 
+            formControlName="companyName">
+           <span class="help-block" *ngIf="company.get('companyName').errors?.required 
+           && company.get('companyName').touched">
+              Company Name required
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-6" *ngIf="i>0">
+          <button type="button" class="btn btn-primary btn-sm pull-right"
+          title="Delete companies" (click)="removeCompany(i)">
+
+          <span class="glyphicon glyphicon-remove">
+
+          </span>
+          </button>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label"
+            [attr.for]="designation">Designation:</label>
+            <div class="col-sm-4">
+            <input type="text" class="form-control" [id]="'designation'+i" placeholder="Enter Designation" 
+            formControlName="designation">
+           <span class="help-block" *ngIf="company.get('designation').errors?.required 
+           && company.get('designation').touched">
+              Designation required
+           </span>
+          </div>
+        </div>
+        
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"
+            [attr.for]="duration_from">From:</label>
+            <div class="col-sm-4">
+           <input type="text" class="form-control" [id]="'duration_from'+i" placeholder="From" 
+            formControlName="duration_from">
+           <span class="help-block" *ngIf="company.get('duration_from').errors?.required 
+           && company.get('duration_from').touched">
+           duration_from required
+           </span>
+            </div>
+          </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label"
+                [attr.for]="duration_to">To:</label>
+                <div class="col-sm-4">
+               <input type="text" class="form-control" [id]="'duration_to'+i" placeholder="To" 
+                formControlName="duration_to">
+               <span class="help-block" *ngIf="company.get('duration_to').errors?.required 
+               && company.get('duration_to').touched">
+               duration_from required
+               </span>
+              </div>
+            </div>
+            
+
+            
+
+      </div>
+
+    </div> -->
+<button type="submit" class="btn btn-default" (click)="saveForm(reactiveForm)">Submit</button>
+  </form>
+</div>
+</body>
+</html>
+
